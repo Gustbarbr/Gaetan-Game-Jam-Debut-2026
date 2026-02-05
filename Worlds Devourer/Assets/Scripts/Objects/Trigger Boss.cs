@@ -3,14 +3,16 @@ using UnityEngine;
 public class TriggerBoss : MonoBehaviour
 {
     public GameObject boss;
-    public GameObject lockExit;
+    public GameObject lockExitA;
+    public GameObject lockExitB;
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.CompareTag("Player"))
         {
             boss.SetActive(true);
-            lockExit.SetActive(true);
+            lockExitA.SetActive(true);
+            lockExitB.SetActive(true);
         }
     }
 }

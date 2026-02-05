@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: -7893327381028446897}
   - component: {fileID: 8944232378319717193}
   - component: {fileID: 103478834395185387}
-  m_Layer: 8
+  m_Layer: 10
   m_Name: Mist Arrow
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -5,24 +5,16 @@ public class SpellAttributes : MonoBehaviour
     [SerializeField] private float damage;
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.CompareTag("Enemy"))
+        if (collision.TryGetComponent(out EnemyHealth enemy))
         {
-            EnemyHealth enemy = collision.GetComponent<EnemyHealth>();
-
             enemy.TakeDamage(damage);
-
-            Destroy(gameObject);
         }
-
-        if(collision.CompareTag("Breakable Wall"))
+        else if (collision.TryGetComponent(out PlayerAttributes player))
         {
-            Destroy(gameObject);
-            Destroy(collision.gameObject);
+            player.TakeDamage(damage);
         }
 
-        else
-        {
-            Destroy(gameObject);
-        }
+        Destroy(gameObject);
     }
+
 }

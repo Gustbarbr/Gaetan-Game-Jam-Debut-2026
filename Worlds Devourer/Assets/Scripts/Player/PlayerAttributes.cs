@@ -37,4 +37,19 @@ public class PlayerAttributes : MonoBehaviour
             manaCurrentValue += 2.5f * Time.deltaTime;
         }
     }
+
+    public void TakeDamage(float damage)
+    {
+        hpCurrentValue -= damage;
+
+        if (hpCurrentValue <= 0)
+        {
+            Die();
+        }
+    }
+
+    public void Die()
+    {
+        Debug.Log("Dead");
+    }
 }

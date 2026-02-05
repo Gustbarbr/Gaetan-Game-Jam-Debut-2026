@@ -14,13 +14,13 @@ TagManager:
   - 
   - Water
   - UI
-  - 
+  - Enemy
   - Player
-  - Spell
   - 
-  - 
-  - 
-  - 
+  - Breakable
+  - PlayerSpell
+  - EnemySpell
+  - Ground
   - 
   - 
   - 
