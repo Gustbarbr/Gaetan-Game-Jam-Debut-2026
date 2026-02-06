@@ -4,6 +4,7 @@ using UnityEngine;
 public class LampBearerAttack : MonoBehaviour
 {
     public GameObject player;
+    public Animator animator;
 
     [Header("Prefab")]
     [SerializeField] private GameObject mistDescentPrefab;
@@ -11,6 +12,7 @@ public class LampBearerAttack : MonoBehaviour
 
     private void Start()
     {
+        animator = GetComponent<Animator>();
         StartCoroutine(AttackInterval());
     }
 
@@ -30,7 +32,9 @@ public class LampBearerAttack : MonoBehaviour
             );
 
             Instantiate(mistDescentPrefab, prefabSpawnPosition, transform.rotation);
+            animator.SetBool("isAttacking", true);
             yield return new WaitForSeconds(0.5f);
+            animator.SetBool("isAttacking", false);
         }
     }
 }

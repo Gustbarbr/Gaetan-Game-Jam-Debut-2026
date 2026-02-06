@@ -7,14 +7,19 @@ public class PlayerAttack : MonoBehaviour
     public PlayerAttributes playerAttributes;
 
     // Reference one specificaction present in the Input Actions
-    [SerializeField] private InputActionReference playerAttack;
+    [SerializeField] private InputActionReference primaryAttack;
+    [SerializeField] private InputActionReference secondaryAttack;
     [SerializeField] private InputActionAsset playerInputActions;
     private InputAction lookAction;
 
     [Header("Prefabs")]
     [SerializeField] private GameObject mistArrowPrefab;
+    [SerializeField] private GameObject mistDescentPrefab;
     [SerializeField] private Vector3 prefabSpawnPosition;
     [SerializeField] private float prefabMoveSpeed;
+
+    [Header("Unlock Spells")]
+    public bool mistDescentUnlocked = false;
 
     [Header("Mouse")]
     private Camera mainCamera;
@@ -38,13 +43,15 @@ public class PlayerAttack : MonoBehaviour
 
     private void OnEnable()
     {
-        playerAttack.action.performed += OnActionPerformed;
+        primaryAttack.action.performed += OnPrimaryAttack;
+        secondaryAttack.action.performed += OnSecondaryAttack;
         playerInputActions.Enable();
     }
 
     private void OnDisable()
     {
-        playerAttack.action.performed -= OnActionPerformed;
+        primaryAttack.action.performed -= OnPrimaryAttack;
+        secondaryAttack.action.performed -= OnSecondaryAttack;
         playerInputActions.Disable();
         lookAction.performed -= OnLook;
         lookAction.canceled -= OnLook;
@@ -55,28 +62,34 @@ public class PlayerAttack : MonoBehaviour
         mousePosition = context.ReadValue<Vector2>();
     }
 
-    private void OnActionPerformed(InputAction.CallbackContext context)
+    private void OnPrimaryAttack(InputAction.CallbackContext context)
     {
-        // Check which button triggered the action
-        string controlPath = context.control.path;
+        if (playerAttributes.manaCurrentValue < 5) return;
 
-        // Get the name of the button
-        //Debug.Log("Action performed by: " + controlPath);
+        Vector3 mouseWorldPosition =
+            mainCamera.ScreenToWorldPoint(new Vector3(mousePosition.x, mousePosition.y, -mainCamera.transform.position.z));
 
-        if (controlPath.Contains("/Mouse/leftButton") && playerAttributes.manaCurrentValue >= 5)
-        {
-            Vector3 mouseWorldPosition = mainCamera.ScreenToWorldPoint(new Vector3(mousePosition.x, mousePosition.y, -mainCamera.transform.position.z));
-            Vector3 direction = (mouseWorldPosition - prefabSpawnPosition).normalized;
-            float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+        Vector3 direction = (mouseWorldPosition - prefabSpawnPosition).normalized;
+        float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
 
-            var prefabSpawnRotation = Quaternion.Euler(0f, 0f, angle);
+        Quaternion rotation = Quaternion.Euler(0f, 0f, angle);
 
-            GameObject mistArrowPrefabClone = Instantiate(mistArrowPrefab, prefabSpawnPosition, prefabSpawnRotation);
+        GameObject arrow = Instantiate(mistArrowPrefab, prefabSpawnPosition, rotation);
+        arrow.GetComponent<Rigidbody2D>().linearVelocity = direction * prefabMoveSpeed;
 
-            Rigidbody2D rb = mistArrowPrefabClone.GetComponent<Rigidbody2D>();
-            rb.linearVelocity = direction * prefabMoveSpeed;
+        playerAttributes.manaCurrentValue -= 5f;
+    }
 
-            playerAttributes.manaCurrentValue -= 5f;
-        }
+    private void OnSecondaryAttack(InputAction.CallbackContext context)
+    {
+        if (!mistDescentUnlocked) return;
+        if (playerAttributes.manaCurrentValue < 5) return;
+
+        Vector3 mouseWorldPosition =
+            mainCamera.ScreenToWorldPoint(new Vector3(mousePosition.x, mousePosition.y, -mainCamera.transform.position.z));
+
+        Instantiate(mistDescentPrefab, mouseWorldPosition, Quaternion.identity);
+
+        playerAttributes.manaCurrentValue -= 5f;
     }
 }

@@ -14,6 +14,11 @@ public class SpellAttributes : MonoBehaviour
             player.TakeDamage(damage);
         }
 
+        else if (collision.CompareTag("Breakable Wall"))
+        {
+            Destroy(collision.gameObject);
+        }
+
         Destroy(gameObject);
     }
 

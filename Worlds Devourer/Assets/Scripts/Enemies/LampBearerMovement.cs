@@ -1,11 +1,14 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.PlayerLoop;
 
 public class LampBearerMovement : MonoBehaviour
 {
     public GameObject teleportPointA;
     public GameObject teleportPointB;
     public GameObject actualTeleportPoint;
+
+    public EnemyHealth health;
 
     private void Start()
     {

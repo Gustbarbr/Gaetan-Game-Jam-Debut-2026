@@ -4,6 +4,9 @@ public class EnemyHealth : MonoBehaviour
 {
     [SerializeField] private float enemyMaxHealth;
     [SerializeField] private float enemyCurrentHealth;
+    [SerializeField] private GameObject flesh;
+    [SerializeField] private GameObject enterBossArenaTrigger;
+    [SerializeField] private PlayerAttack player;
 
     private void Awake()
     {
@@ -20,6 +23,12 @@ public class EnemyHealth : MonoBehaviour
     }
     private void Die()
     {
+        if(player.mistDescentUnlocked == false)
+        {
+            player.mistDescentUnlocked = true;
+        }
+        flesh.SetActive(true);
+        Destroy(enterBossArenaTrigger);
         Destroy(gameObject);
     }
 }

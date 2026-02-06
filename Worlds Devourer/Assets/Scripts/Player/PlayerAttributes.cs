@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class PlayerAttributes : MonoBehaviour
 {
@@ -50,6 +51,6 @@ public class PlayerAttributes : MonoBehaviour
 
     public void Die()
     {
-        Debug.Log("Dead");
+        SceneManager.LoadScene("Death");
     }
 }
