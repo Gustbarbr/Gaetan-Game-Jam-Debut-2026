@@ -3,6 +3,8 @@ using UnityEngine;
 
 public class DestroyObjectAfterSetTime : MonoBehaviour
 {
+    public float timeUntilDestroy;
+
     void Start()
     {
         StartCoroutine(SelfDestruct());
@@ -10,7 +12,7 @@ public class DestroyObjectAfterSetTime : MonoBehaviour
 
     IEnumerator SelfDestruct()
     {
-        yield return new WaitForSeconds(5);
+        yield return new WaitForSeconds(timeUntilDestroy);
         Destroy(gameObject);
     }
 }
