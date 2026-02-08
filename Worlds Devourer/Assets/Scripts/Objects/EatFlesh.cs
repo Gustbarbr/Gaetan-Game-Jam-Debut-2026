@@ -8,7 +8,7 @@ public class EatFlesh : MonoBehaviour
     {
         if (collision.CompareTag("Player"))
         {
-            PlayerAttributes player = GetComponent<PlayerAttributes>();
+            PlayerAttributes player = Object.FindAnyObjectByType<PlayerAttributes>();
 
             player.fleshEaten += 1;
             foodTimer.foodSlider.maxValue = 150f;

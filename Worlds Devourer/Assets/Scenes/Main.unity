@@ -10957,7 +10957,7 @@ AudioSource:
   m_PlayOnAwake: 1
   m_Volume: 0.3
   m_Pitch: 1
-  Loop: 0
+  Loop: 1
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
@@ -35025,6 +35025,7 @@ MonoBehaviour:
   manaCurrentValue: 0
   manaMaxValue: 100
   manaSlider: {fileID: 76633104}
+  fleshEaten: 0
   dead: 0
 --- !u!114 &2105146160
 MonoBehaviour:
