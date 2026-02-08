@@ -84,7 +84,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 962b6a7479731b84b8b60cd91625b912, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::VenonCloud
-  damage: 15
+  damage: 30
   lifeTime: 2
 --- !u!212 &2307599385806392122
 SpriteRenderer:

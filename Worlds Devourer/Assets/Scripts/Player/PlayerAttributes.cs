@@ -37,7 +37,7 @@ public class PlayerAttributes : MonoBehaviour
 
         if (manaCurrentValue <= manaMaxValue)
         {
-            manaCurrentValue += 2.5f * Time.deltaTime;
+            manaCurrentValue += 4f * Time.deltaTime;
         }
     }
 

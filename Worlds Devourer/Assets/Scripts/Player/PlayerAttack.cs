@@ -6,6 +6,9 @@ public class PlayerAttack : MonoBehaviour
     public GameObject player;
     public PlayerAttributes playerAttributes;
 
+    public AudioSource audioSource;
+    public GameObject dialogueBox;
+
     // Reference one specificaction present in the Input Actions
     [SerializeField] private InputActionReference primaryAttack;
     [SerializeField] private InputActionReference secondaryAttack;
@@ -64,20 +67,25 @@ public class PlayerAttack : MonoBehaviour
 
     private void OnPrimaryAttack(InputAction.CallbackContext context)
     {
-        if (playerAttributes.manaCurrentValue < 5) return;
+        if (dialogueBox.gameObject.activeSelf == false)
+        {
+            audioSource.Play();
 
-        Vector3 mouseWorldPosition =
-            mainCamera.ScreenToWorldPoint(new Vector3(mousePosition.x, mousePosition.y, -mainCamera.transform.position.z));
+            if (playerAttributes.manaCurrentValue < 5) return;
 
-        Vector3 direction = (mouseWorldPosition - prefabSpawnPosition).normalized;
-        float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+            Vector3 mouseWorldPosition =
+                mainCamera.ScreenToWorldPoint(new Vector3(mousePosition.x, mousePosition.y, -mainCamera.transform.position.z));
 
-        Quaternion rotation = Quaternion.Euler(0f, 0f, angle);
+            Vector3 direction = (mouseWorldPosition - prefabSpawnPosition).normalized;
+            float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
 
-        GameObject arrow = Instantiate(mistArrowPrefab, prefabSpawnPosition, rotation);
-        arrow.GetComponent<Rigidbody2D>().linearVelocity = direction * prefabMoveSpeed;
+            Quaternion rotation = Quaternion.Euler(0f, 0f, angle);
 
-        playerAttributes.manaCurrentValue -= 5f;
+            GameObject arrow = Instantiate(mistArrowPrefab, prefabSpawnPosition, rotation);
+            arrow.GetComponent<Rigidbody2D>().linearVelocity = direction * prefabMoveSpeed;
+
+            playerAttributes.manaCurrentValue -= 5f;
+        }
     }
 
     private void OnSecondaryAttack(InputAction.CallbackContext context)
