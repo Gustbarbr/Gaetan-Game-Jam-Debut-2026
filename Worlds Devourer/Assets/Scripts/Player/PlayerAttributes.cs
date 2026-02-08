@@ -14,6 +14,8 @@ public class PlayerAttributes : MonoBehaviour
     public float manaMaxValue;
     public Slider manaSlider;
 
+    public bool dead = false;
+
     private void Start()
     {
         hpCurrentValue = hpMaxValue;
@@ -51,6 +53,7 @@ public class PlayerAttributes : MonoBehaviour
 
     public void Die()
     {
+        dead = true;
         SceneManager.LoadScene("Death");
     }
 }

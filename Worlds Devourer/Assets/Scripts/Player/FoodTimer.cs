@@ -10,6 +10,7 @@ public class FoodTimer : MonoBehaviour
     public float foodCurrentValue;
     public float foodMaxValue;
     public Slider foodSlider;
+    public bool foodTimerEnabled = true;
 
     private void Start()
     {
@@ -18,9 +19,12 @@ public class FoodTimer : MonoBehaviour
 
     private void Update()
     {
-        foodSlider.value = foodCurrentValue;
+        if (foodTimerEnabled == true)
+        {
+            foodSlider.value = foodCurrentValue;
 
-        foodCurrentValue -= 1f * Time.deltaTime;
+            foodCurrentValue -= 1f * Time.deltaTime;
+        }
 
         if(foodCurrentValue <= 0)
         {
