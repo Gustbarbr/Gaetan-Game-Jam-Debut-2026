@@ -88,7 +88,7 @@ public class Dialogue : MonoBehaviour
             foodTimer.foodTimerEnabled = true;
         }
 
-        if (scene.name == "Death")
+        if (scene.name == "Death" || scene.name == "Victory")
         {
             SceneManager.LoadScene("Main Menu");
         }

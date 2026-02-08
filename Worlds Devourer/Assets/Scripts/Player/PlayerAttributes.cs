@@ -14,6 +14,8 @@ public class PlayerAttributes : MonoBehaviour
     public float manaMaxValue;
     public Slider manaSlider;
 
+    public int fleshEaten = 0;
+
     public bool dead = false;
 
     private void Start()
@@ -29,6 +31,11 @@ public class PlayerAttributes : MonoBehaviour
 
         hpSlider.value = hpCurrentValue;
         manaSlider.value = manaCurrentValue;
+
+        if(fleshEaten == 2)
+        {
+            SceneManager.LoadScene("Victory");
+        }
 
         if (hpCurrentValue <= hpMaxValue)
         {
